@@ -62,7 +62,7 @@ const getTareasPendientesByUsuario = (req, res) => {
 const createTarea = (req, res) => {
   const { descripcion, id_usuario, id_conductor, fecha_inicio, fecha_fin, estado, id_entrega, id_camion, id_ruta } = req.body;
 
-  // Validar campos realmente obligatorios
+
   if (!descripcion || !id_usuario || !id_conductor || !fecha_inicio || !fecha_fin || !estado || !id_camion) {
     return res.status(400).json({ message: "Faltan campos obligatorios" });
   }
@@ -70,15 +70,7 @@ const createTarea = (req, res) => {
   db.query(
     "INSERT INTO tareas_asignadas (descripcion, id_usuario, id_conductor, fecha_inicio, fecha_fin, id_entrega, id_ruta, id_camion, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
-      descripcion,
-      id_usuario,
-      id_conductor,
-      fecha_inicio,
-      fecha_fin,
-      id_entrega || null,  // puede ser null
-      id_ruta || null,     // puede ser null
-      id_camion,           // obligatorio
-      estado
+      descripcion, id_usuario, id_conductor, fecha_inicio, fecha_fin, id_entrega, id_ruta, id_camion, estado
     ],
     (err, result) => {
       if (err) {
